@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Writing result{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/writing-result.css' %}">
+{% endblock %}
+{% block content %}
+<section class="narrow">
+  <h1>{{ attempt.test.title }}</h1>
+  <p class="muted">Submitted {{ attempt.submitted_at|date:"M j, Y H:i" }} · {{ attempt.status|title }}</p>
+
+  {% if ai_evaluation_enabled %}
+    <section class="wr-ai" data-evaluate-url="{{ evaluate_url }}" data-overall-band="{% if overall_band_available %}{{ overall_band_estimate }}{% endif %}">
+      <h2>AI estimate (not an official IELTS score)</h2>
+      <div class="wr-info">
+        <p>This is an automatic estimate and can be wrong. Official bands are given by IELTS examiners.</p>
+        <p>Your text is sent to an external AI service for evaluation.</p>
+      </div>
+      {% csrf_token %}
+      <p class="wr-overall" id="wr-overall-band" {% if not overall_band_available %}hidden{% endif %} aria-live="polite">
+        <span class="wr-band wr-band--mid wr-overall-badge">
+          <strong class="wr-band-number">{% if overall_band_available %}{{ overall_band_estimate|floatformat:1 }}{% endif %}</strong>
+          <span class="wr-band-caption">Band</span>
+        </span>
+        <span class="wr-overall-copy">Estimated Writing band<span>Based on both evaluated tasks</span></span>
+      </p>
+    </section>
+  {% endif %}
+
+  {% for response in response_rows %}
+    <article class="wr-task-card">
+      {% if ai_evaluation_enabled %}
+        <section class="wr-task-ai"
+          data-task-number="{{ response.task.task_number }}"
+          data-word-count="{{ response.word_count }}"
+          data-min-words="{{ response.task.min_words }}"
+          data-existing-json-id="{% if response.existing_ai_evaluation %}{{ response.ai_json_id }}{% endif %}">
+          <div class="wr-task-head">
+            <h2>Task {{ response.task.task_number }}</h2>
+            {% if response.has_response %}
+              <div class="wr-task-controls">
+                <div class="wr-language">
+                  <label for="wr-language-{{ response.task.task_number }}">Summary language</label>
+                  <select id="wr-language-{{ response.task.task_number }}" class="wr-language-select" name="language">
+                    <option value="en">English</option>
+                    <option value="ru">Russian</option>
+                    <option value="tg">Tajik (experimental)</option>
+                  </select>
+                </div>
+                {% if not response.existing_ai_evaluation %}
+                  <button type="button" class="wr-evaluate-button">Get AI feedback</button>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+          {% if response.task.instructions %}<p class="muted">{{ response.task.instructions }}</p>{% endif %}
+          <div class="response-text">{{ response.text|default:"(No response submitted.)"|linebreaksbr }}</div>
+          <p class="muted">Word count: {{ response.word_count }}</p>
+          {% if response.has_response %}
+            {% if response.existing_ai_evaluation %}
+              {{ response.existing_ai_evaluation.result|json_script:response.ai_json_id }}
+              <div class="wr-feedback-result"></div>
+            {% endif %}
+            <p class="wr-status" aria-live="polite" role="status"></p>
+            <div class="wr-retry-container"></div>
+          {% endif %}
+        </section>
+      {% else %}
+        <h2>Task {{ response.task.task_number }}</h2>
+        {% if response.task.instructions %}<p class="muted">{{ response.task.instructions }}</p>{% endif %}
+        <div class="response-text">{{ response.text|default:"(No response submitted.)"|linebreaksbr }}</div>
+        <p class="muted">Word count: {{ response.word_count }}</p>
+      {% endif %}
+
+      {% if response.score %}
+        <section class="wr-teacher-score">
+          <h3>Teacher score</h3>
+          <dl>
+            <dt>Task Achievement / Task Response</dt><dd>{{ response.score.criterion_1|default:"—" }}</dd>
+            <dt>Coherence and Cohesion</dt><dd>{{ response.score.criterion_2|default:"—" }}</dd>
+            <dt>Lexical Resource</dt><dd>{{ response.score.criterion_3|default:"—" }}</dd>
+            <dt>Grammatical Range and Accuracy</dt><dd>{{ response.score.criterion_4|default:"—" }}</dd>
+          </dl>
+          {% if response.score.feedback %}<p>{{ response.score.feedback|linebreaksbr }}</p>{% endif %}
+        </section>
+      {% endif %}
+    </article>
+  {% empty %}
+    <p>No responses were saved for this attempt.</p>
+  {% endfor %}
+</section>
+{% endblock %}
+{% block extra_js %}
+  {% if ai_evaluation_enabled %}
+    <script src="{% static 'js/writing-result.js' %}" defer></script>
+  {% endif %}
+{% endblock %}

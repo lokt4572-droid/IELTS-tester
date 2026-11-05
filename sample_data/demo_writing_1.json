@@ -1,0 +1,30 @@
+{
+  "title": "Academic Writing Test 1",
+  "slug": "academic-writing-1",
+  "module": "academic",
+  "duration_minutes": 60,
+  "description": "A sample IELTS Academic Writing test for local study and import testing.",
+  "source_name": "Sample practice material",
+  "source_url": "https://example.com/academic-writing-1",
+  "license_note": "Example data for educational use only.",
+  "tasks": [
+    {
+      "task_number": 1,
+      "instructions": "You should spend about 20 minutes on this task.",
+      "prompt_text": "The chart below shows the percentage of households using different energy sources in a city between 2000 and 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "image_file": "chart1.png",
+      "image_alt": "Bar chart showing energy consumption by source over time",
+      "min_words": 150,
+      "suggested_minutes": 20,
+      "sample_answer": "The chart illustrates...",
+      "sample_answer_band": 7.5
+    },
+    {
+      "task_number": 2,
+      "instructions": "You should spend about 40 minutes on this task.",
+      "prompt_text": "Some people think that schools should focus only on academic subjects, while others believe students should also learn practical life skills. Discuss both views and give your own opinion.",
+      "min_words": 250,
+      "suggested_minutes": 40
+    }
+  ]
+}

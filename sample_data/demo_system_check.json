@@ -1,0 +1,54 @@
+{
+  "title": "SYSTEM CHECK (demo, not real IELTS content)",
+  "slug": "system-check-demo",
+  "module": "academic",
+  "duration_minutes": 20,
+  "description": "A tiny placeholder test used to check that the site works. Delete it before launch.",
+  "source_name": "Written for software testing",
+  "source_url": "",
+  "license_note": "Placeholder text for testing only; replace with licensed material.",
+  "passages": [
+    {
+      "title": "Power from the tides",
+      "subtitle": "Demo passage",
+      "text": "[A] Tidal power uses the regular rise and fall of the sea. Unlike wind or sunshine, tides can be predicted years in advance, which makes the electricity they produce easier to plan around.\n\n[B] The first large tidal barrage began operating in 1966 and still supplies power today. However, barrages can change the habitats of fish and birds living in the estuary, and building one is extremely expensive.\n\n[C] More recent designs place turbines directly on the seabed. These resemble underwater windmills and cause less environmental disruption, but they must survive strong currents and salt water, so maintenance costs remain high.",
+      "groups": [
+        {
+          "type": "tfng",
+          "instruction": "Do the following statements agree with the information in the passage?\nWrite TRUE if the statement agrees, FALSE if it contradicts, NOT GIVEN if there is no information.",
+          "questions": [
+            {"number": 1, "text": "Tides can be predicted a long time ahead.", "answer": "TRUE", "explanation": "Paragraph A: tides can be predicted years in advance."},
+            {"number": 2, "text": "The first tidal barrage was built after the year 2000.", "answer": "FALSE", "explanation": "Paragraph B says it began operating in 1966."},
+            {"number": 3, "text": "Tidal power is cheaper than nuclear power.", "answer": "NOT GIVEN", "explanation": "No comparison with nuclear power is made."}
+          ]
+        },
+        {
+          "type": "mcq",
+          "instruction": "Choose the correct letter, A, B, C or D.",
+          "questions": [
+            {"number": 4, "text": "What is a disadvantage of seabed turbines?", "answer": "B",
+             "options": [{"key": "A", "text": "They harm bird habitats"}, {"key": "B", "text": "They must withstand harsh conditions"}, {"key": "C", "text": "They only work in summer"}, {"key": "D", "text": "They cannot be predicted"}],
+             "explanation": "Paragraph C: they must survive strong currents and salt water."}
+          ]
+        },
+        {
+          "type": "matching",
+          "instruction": "Which paragraph contains the following information? Write the correct letter, A, B or C.",
+          "options": [{"key": "A", "text": "Paragraph A"}, {"key": "B", "text": "Paragraph B"}, {"key": "C", "text": "Paragraph C"}],
+          "questions": [
+            {"number": 5, "text": "a comparison with underwater windmills", "answer": "C"},
+            {"number": 6, "text": "a reason why this electricity is easy to plan around", "answer": "A"}
+          ]
+        },
+        {
+          "type": "completion",
+          "instruction": "Complete the sentences. Write ONE WORD ONLY from the passage.",
+          "questions": [
+            {"number": 7, "text": "Barrages can change the habitats of fish and ____ living in the estuary.", "answer": "birds"},
+            {"number": 8, "text": "Seabed turbines resemble underwater ____.", "answer": "windmills|wind mills"}
+          ]
+        }
+      ]
+    }
+  ]
+}

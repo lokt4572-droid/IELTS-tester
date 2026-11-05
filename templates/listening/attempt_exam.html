@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ attempt.test.title }} · Exam mode{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/listening.css' %}">{% endblock %}
+{% block content %}
+<section class="ls-exam" id="ls-exam"
+  data-attempt-id="{{ attempt.pk }}"
+  data-begun="{% if attempt.exam_started_at %}true{% else %}false{% endif %}"
+  data-begin-url="{% url 'listening:exam_begin' attempt.pk %}"
+  data-state-url="{% url 'listening:exam_state' attempt.pk %}"
+  data-save-url="{% url 'listening:save' attempt.pk %}"
+  data-server-saved-at="{{ saved_at }}"
+  data-server-now="{{ server_now }}">
+  {% csrf_token %}
+  <header class="ls-exam-header">
+    <div>
+      <p class="muted"><a href="{% url 'listening:detail' attempt.test.slug %}">Test information</a> · Exam mode</p>
+      <h1>{{ attempt.test.title }}</h1>
+    </div>
+    <div class="ls-exam-readout" id="ls-phase-readout" aria-live="polite">
+      <strong id="ls-section-label">Ready</strong>
+      <span id="ls-phase-label">Your test has not started.</span>
+      <span id="ls-countdown" role="timer" aria-live="off"></span>
+    </div>
+  </header>
+
+  <div class="ls-exam-ready" id="ls-exam-ready"{% if attempt.exam_started_at %} hidden{% endif %}>
+    <p>The exam begins only when you press the button. Each recording plays once; keep your device volume comfortable.</p>
+    <button class="btn" type="button" id="ls-begin-test">Begin test</button>
+  </div>
+
+  <div class="ls-exam-audio-tools" id="ls-audio-tools"{% if not attempt.exam_started_at %} hidden{% endif %}>
+    <label for="ls-exam-volume">Volume</label>
+    <input id="ls-exam-volume" type="range" min="0" max="1" step="0.05" value="1">
+    <audio id="ls-exam-audio" preload="auto" aria-hidden="true"></audio>
+  </div>
+  <div class="ls-audio-error" id="ls-audio-error" role="status" aria-live="polite" hidden>
+    <p id="ls-audio-error-message"></p>
+    <button class="btn" type="button" id="ls-audio-retry">Retry audio</button>
+  </div>
+  <div id="ls-tap-audio" class="ls-tap-audio" hidden>
+    <p>Tap to continue audio.</p>
+    <button class="btn" type="button" id="ls-tap-audio-button">Tap to continue audio</button>
+  </div>
+  <p class="ls-exam-save-status" id="ls-exam-save-status" aria-live="polite"></p>
+
+  <form id="ls-exam-form">
+    {% for section in sections %}
+    <section class="ls-exam-section ls-hidden" id="ls-exam-section-{{ section.number }}"
+      data-exam-section="{{ section.number }}">
+      <header>
+        <p class="ls-kicker">Section {{ section.number }}</p>
+        <h2>{{ section.title }}</h2>
+        {% if section.context %}<p class="ls-context">{{ section.context }}</p>{% endif %}
+      </header>
+      {% for group in section.groups.all %}
+      <fieldset class="ls-group">
+        {% if group.instruction %}<legend>{{ group.instruction }}</legend>{% endif %}
+        {% if group.text %}<p class="ls-group-text">{{ group.text }}</p>{% endif %}
+        {% if group.image %}
+          <img class="ls-diagram" src="{{ group.image.url }}" alt="Question diagram for {{ section.title }}">
+        {% endif %}
+        {% if group.qtype == "mcq_multi" %}
+          <p class="ls-choose-hint">Choose up to {{ group.choose }}.</p>
+          <ol class="ls-number-list">
+            {% for number in group.multi_question_numbers %}
+              <li value="{{ number }}">Question {{ number }}</li>
+            {% endfor %}
+          </ol>
+          <div class="ls-options ls-multi-options" data-multi-questions="{{ group.multi_question_numbers|join:',' }}" data-choose="{{ group.choose }}">
+            {% for option in group.options %}
+              <label class="ls-option">
+                <input type="checkbox" value="{{ option.key }}" data-multi-option>
+                <span><strong>{{ option.key }}.</strong> {{ option.text }}</span>
+              </label>
+            {% endfor %}
+          </div>
+        {% else %}
+          {% for question in group.questions.all %}
+          <div class="ls-question" data-question-wrap="{{ question.number }}">
+            <span class="ls-question-number">Question {{ question.number }}</span>
+            <p class="ls-question-text" id="ls-exam-question-text-{{ question.number }}">{{ question.text }}</p>
+            {% if group.qtype == "mcq" %}
+              <div class="ls-options" role="group" aria-labelledby="ls-exam-question-text-{{ question.number }}">
+                {% for option in question.options %}
+                  <label class="ls-option">
+                    <input type="radio" name="exam-question-{{ question.number }}" value="{{ option.key }}"
+                      data-question-number="{{ question.number }}">
+                    <span><strong>{{ option.key }}.</strong> {{ option.text }}</span>
+                  </label>
+                {% endfor %}
+              </div>
+            {% elif group.qtype == "matching" or group.qtype == "diagram_label" %}
+              <label class="ls-sr-only" for="ls-exam-answer-{{ question.number }}">Answer for question {{ question.number }}</label>
+              <select id="ls-exam-answer-{{ question.number }}" data-question-number="{{ question.number }}" aria-describedby="ls-exam-question-text-{{ question.number }}">
+                <option value="">Choose a letter</option>
+                {% for option in group.options %}
+                  <option value="{{ option.key }}">{{ option.key }}{% if group.qtype == "matching" %} · {{ option.text }}{% endif %}</option>
+                {% endfor %}
+              </select>
+            {% else %}
+              <label class="ls-sr-only" for="ls-exam-answer-{{ question.number }}">Answer for question {{ question.number }}</label>
+              <input class="ls-text-answer" type="text" maxlength="200" id="ls-exam-answer-{{ question.number }}"
+                data-question-number="{{ question.number }}"
+                aria-describedby="ls-exam-question-text-{{ question.number }}{% if group.max_words %} ls-exam-hint-{{ question.number }}{% endif %}">
+              {% if group.max_words %}<span class="ls-word-hint" id="ls-exam-hint-{{ question.number }}">Word limit: {{ group.max_words }} (hint only)</span>{% endif %}
+            {% endif %}
+          </div>
+          {% endfor %}
+        {% endif %}
+      </fieldset>
+      {% endfor %}
+    </section>
+    {% endfor %}
+  </form>
+
+  <section class="ls-exam-review ls-hidden" id="ls-review-panel">
+    <h2>Review your answers</h2>
+    <p>Check any answer before the review timer ends.</p>
+  </section>
+  <p class="ls-error" id="ls-exam-error" aria-live="polite"></p>
+</section>
+{{ answer_map|json_script:"ls-exam-initial-answers" }}
+{{ schedule|json_script:"ls-exam-initial-schedule" }}
+{{ audio_map|json_script:"ls-exam-audio-map" }}
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'js/listening-exam.js' %}" defer></script>
+{% endblock %}

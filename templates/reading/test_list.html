@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Reading tests · IELTS Practice{% endblock %}
+{% block content %}
+<h1>Reading tests</h1>
+<p class="intro">Choose a test, read the passages, and answer under a timer. You are marked straight away and can review every answer afterwards.</p>
+{% for t in tests %}
+<article class="card">
+  <h2><a href="{% url 'reading:detail' t.slug %}">{{ t.title }}</a></h2>
+  <ul class="chips">
+    <li class="chip">{{ t.get_module_display }}</li>
+    <li class="chip">{{ t.n_passages }} passage{{ t.n_passages|pluralize }}</li>
+    <li class="chip">{{ t.n_questions }} questions</li>
+    <li class="chip">{{ t.duration_minutes }} min</li>
+  </ul>
+  {% if t.description %}<p>{{ t.description }}</p>{% endif %}
+  {% if t.source_name %}<p class="muted">Source: {{ t.source_name }}</p>{% endif %}
+  <p><a class="btn small ghost" href="{% url 'reading:detail' t.slug %}">View test</a></p>
+</article>
+{% empty %}
+<p class="empty">No tests are published yet. Staff can import tests in the admin area (Reading tests → Import JSON).</p>
+{% endfor %}
+{% endblock %}

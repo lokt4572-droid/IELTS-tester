@@ -1,0 +1,236 @@
+{
+  "title": "Demo Listening Test 1",
+  "slug": "demo-listening-1",
+  "description": "A format demonstration. Replace the example content and supply licensed audio before use.",
+  "duration_minutes": 30,
+  "review_seconds": 120,
+  "source_name": "Original demonstration content",
+  "source_url": "",
+  "license_note": "Original sample data for local development; replace with appropriately licensed content.",
+  "sections": [
+    {
+      "number": 1,
+      "title": "Section 1",
+      "context": "A conversation in an everyday context.",
+      "audio_file": "demo_listening_1_section_1.mp3",
+      "audio_seconds": 410,
+      "preview_seconds": 30,
+      "check_seconds": 30,
+      "transcript": "",
+      "groups": [
+        {
+          "type": "completion",
+          "instruction": "Complete the form. Write NO MORE THAN TWO WORDS AND/OR A NUMBER for each answer.",
+          "max_words": 2,
+          "questions": [
+            {"number": 1, "text": "Name: Sarah ____", "answer": "Brown"},
+            {"number": 2, "text": "Street: ____ Road", "answer": "Park"},
+            {"number": 3, "text": "Appointment date: ____", "answer": "12 May"},
+            {"number": 4, "text": "Preferred contact time: ____", "answer": "morning"},
+            {"number": 5, "text": "Membership number: ____", "answer": "4817"}
+          ]
+        },
+        {
+          "type": "mcq",
+          "instruction": "Choose the correct letter, A, B or C.",
+          "questions": [
+            {
+              "number": 6,
+              "text": "Where will the meeting take place?",
+              "options": [
+                {"key": "A", "text": "At the library"},
+                {"key": "B", "text": "At the station"},
+                {"key": "C", "text": "At the sports centre"}
+              ],
+              "answer": "C",
+              "explanation": "The speaker confirms the sports centre."
+            }
+          ]
+        },
+        {
+          "type": "matching",
+          "instruction": "Match each facility with the correct letter.",
+          "options": [
+            {"key": "A", "text": "Near the entrance"},
+            {"key": "B", "text": "On the upper floor"},
+            {"key": "C", "text": "Behind reception"}
+          ],
+          "questions": [
+            {"number": 7, "text": "The café", "answer": "A"},
+            {"number": 8, "text": "The information desk", "answer": "C"}
+          ]
+        },
+        {
+          "type": "short",
+          "instruction": "Answer using NO MORE THAN TWO WORDS.",
+          "questions": [
+            {"number": 9, "text": "What should Sarah bring?", "answer": "photo ID"}
+          ]
+        },
+        {
+          "type": "diagram_label",
+          "instruction": "Label the plan with the correct letter.",
+          "image_file": "demo_listening_1_plan.png",
+          "options": [
+            {"key": "A", "text": "A"},
+            {"key": "B", "text": "B"},
+            {"key": "C", "text": "C"}
+          ],
+          "questions": [
+            {"number": 10, "text": "Reception", "answer": "B"}
+          ]
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Section 2",
+      "context": "A monologue in an everyday context.",
+      "audio_file": "demo_listening_1_section_2.mp3",
+      "audio_seconds": 420,
+      "preview_seconds": 30,
+      "check_seconds": 30,
+      "transcript": "",
+      "groups": [
+        {
+          "type": "mcq_multi",
+          "instruction": "Which TWO activities are available on Saturday?",
+          "choose": 2,
+          "numbers": [11, 12],
+          "text": "Which TWO activities are available on Saturday?",
+          "options": [
+            {"key": "A", "text": "Guided walk"},
+            {"key": "B", "text": "Cooking class"},
+            {"key": "C", "text": "Boat trip"},
+            {"key": "D", "text": "Photography tour"}
+          ],
+          "answers": ["A", "D"],
+          "explanation": "The guided walk and photography tour run on Saturday."
+        },
+        {
+          "type": "mcq",
+          "instruction": "Choose the correct letter, A, B or C.",
+          "questions": [
+            {
+              "number": 13,
+              "text": "What time does the visitor centre open?",
+              "options": [
+                {"key": "A", "text": "8:30"},
+                {"key": "B", "text": "9:00"},
+                {"key": "C", "text": "9:30"}
+              ],
+              "answer": "B"
+            },
+            {
+              "number": 14,
+              "text": "Where can visitors leave bicycles?",
+              "options": [
+                {"key": "A", "text": "By the main gate"},
+                {"key": "B", "text": "Beside the café"},
+                {"key": "C", "text": "In the car park"}
+              ],
+              "answer": "A"
+            },
+            {
+              "number": 15,
+              "text": "Which route is suitable for families?",
+              "options": [
+                {"key": "A", "text": "The river route"},
+                {"key": "B", "text": "The hill route"},
+                {"key": "C", "text": "The forest route"}
+              ],
+              "answer": "C"
+            }
+          ]
+        },
+        {
+          "type": "completion",
+          "instruction": "Complete the notes. Write NO MORE THAN TWO WORDS AND/OR A NUMBER.",
+          "max_words": 2,
+          "questions": [
+            {"number": 16, "text": "Bring a ____ bottle.", "answer": "water"},
+            {"number": 17, "text": "The bus leaves from ____ Street.", "answer": "King"},
+            {"number": 18, "text": "Tickets cost ____ pounds.", "answer": "four"},
+            {"number": 19, "text": "The picnic area is beside the ____.", "answer": "lake"},
+            {"number": 20, "text": "Return equipment before ____.", "answer": "5 pm"}
+          ]
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Section 3",
+      "context": "A discussion in an educational context.",
+      "audio_file": "demo_listening_1_section_3.mp3",
+      "audio_seconds": 430,
+      "preview_seconds": 30,
+      "check_seconds": 30,
+      "transcript": "",
+      "groups": [
+        {
+          "type": "matching",
+          "instruction": "Match each research method with the correct letter.",
+          "options": [
+            {"key": "A", "text": "Interview"},
+            {"key": "B", "text": "Questionnaire"},
+            {"key": "C", "text": "Observation"}
+          ],
+          "questions": [
+            {"number": 21, "text": "Collecting opinions from a large group", "answer": "B"},
+            {"number": 22, "text": "Recording behaviour in a natural setting", "answer": "C"},
+            {"number": 23, "text": "Asking detailed follow-up questions", "answer": "A"},
+            {"number": 24, "text": "Gathering written responses online", "answer": "B"}
+          ]
+        },
+        {
+          "type": "short",
+          "instruction": "Answer using NO MORE THAN TWO WORDS.",
+          "questions": [
+            {"number": 25, "text": "Which month is the project deadline?", "answer": "June"}
+          ]
+        },
+        {
+          "type": "completion",
+          "instruction": "Complete the sentences. Write NO MORE THAN TWO WORDS.",
+          "max_words": 2,
+          "questions": [
+            {"number": 26, "text": "The students will first review ____.", "answer": "previous studies"},
+            {"number": 27, "text": "The survey will be tested with ____.", "answer": "ten students"},
+            {"number": 28, "text": "The supervisor recommends a ____ schedule.", "answer": "weekly"},
+            {"number": 29, "text": "The results will be stored on the ____.", "answer": "university server"},
+            {"number": 30, "text": "The final presentation is in ____.", "answer": "Room 14"}
+          ]
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Section 4",
+      "context": "An academic lecture.",
+      "audio_file": "demo_listening_1_section_4.mp3",
+      "audio_seconds": 440,
+      "preview_seconds": 30,
+      "check_seconds": 30,
+      "transcript": "",
+      "groups": [
+        {
+          "type": "completion",
+          "instruction": "Complete the notes. Write NO MORE THAN TWO WORDS AND/OR A NUMBER.",
+          "max_words": 2,
+          "questions": [
+            {"number": 31, "text": "The study focuses on ____ environments.", "answer": "coastal"},
+            {"number": 32, "text": "Researchers collected samples in ____.", "answer": "three regions"},
+            {"number": 33, "text": "The main instrument was a ____.", "answer": "digital sensor"},
+            {"number": 34, "text": "Measurements were taken every ____ hours.", "answer": "six"},
+            {"number": 35, "text": "The data showed a ____ increase.", "answer": "gradual"},
+            {"number": 36, "text": "The greatest change occurred in ____.", "answer": "spring"},
+            {"number": 37, "text": "One limitation was the small ____.", "answer": "sample size"},
+            {"number": 38, "text": "Further research should examine ____.", "answer": "winter conditions"},
+            {"number": 39, "text": "The findings were published in ____.", "answer": "2023"},
+            {"number": 40, "text": "The lecture concludes with a ____.", "answer": "case study"}
+          ]
+        }
+      ]
+    }
+  ]
+}

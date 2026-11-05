@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ test.title }}{% endblock %}
+{% block body_class %}exam{% endblock %}
+{% block content %}
+<form id="exam-form" method="post" action="{% url 'reading:submit' attempt.pk %}"
+      data-save-url="{% url 'reading:save' attempt.pk %}" data-seconds-left="{{ seconds_left }}">
+  {% csrf_token %}
+  <div class="exam-bar">
+    <strong class="exam-title">{{ test.title }}</strong>
+    <div class="part-tabs" role="tablist">
+      {% for passage in passages %}<button type="button" class="part-tab{% if forloop.first %} active{% endif %}" data-part="{{ forloop.counter }}">Passage {{ forloop.counter }}</button>{% endfor %}
+    </div>
+    <span id="save-state" class="muted" aria-live="polite"></span>
+    <span id="timer" class="timer" role="timer">--:--</span>
+    <button type="button" id="clear-hl" class="btn ghost small">Clear highlights</button>
+    <button type="submit" id="submit-btn" class="btn small">Finish</button>
+  </div>
+
+  {% for passage in passages %}
+  <section class="part" data-part="{{ forloop.counter }}"{% if not forloop.first %} hidden{% endif %}>
+    <div class="split">
+      <article class="passage-pane">
+        <h2>{{ passage.title }}</h2>
+        {% if passage.subtitle %}<p class="muted">{{ passage.subtitle }}</p>{% endif %}
+        <div class="translation-switcher" id="translation-switcher" aria-label="Translation language" hidden></div>
+        <div class="passage-text">
+          {% for p in passage.paragraphs %}<p>{% if p.label %}<span class="plabel">{{ p.label }}</span>{% endif %}{{ p.text }}</p>{% endfor %}
+        </div>
+      </article>
+      <div class="questions-pane">
+        {% for group in passage.groups.all %}
+        <fieldset class="group">
+          <legend>Questions {{ group.number_range }}</legend>
+          {% if group.instruction %}<p class="instruction">{{ group.instruction|linebreaksbr }}</p>{% endif %}
+          {% if group.qtype == "matching" %}
+          <ul class="match-list">{% for o in group.options %}<li><strong>{{ o.key }}</strong> {{ o.text }}</li>{% endfor %}</ul>
+          {% endif %}
+          {% for q in group.questions.all %}
+          <div class="q" id="qn-{{ q.id }}" data-part="{{ forloop.parentloop.parentloop.counter }}" data-number="{{ q.number }}">
+            <span class="qnum">{{ q.number }}</span>
+            <div class="qbody">
+            {% if group.qtype == "completion" or group.qtype == "short" %}
+              {% with parts=q.text_parts %}<p>{{ parts.0 }}<input type="text" class="gap" name="q_{{ q.id }}" value="{{ q.saved }}" autocomplete="off" maxlength="60" aria-label="Answer to question {{ q.number }}">{{ parts.1 }}</p>{% endwith %}
+            {% elif group.qtype == "matching" %}
+              <p>{{ q.text }}</p>
+              <select name="q_{{ q.id }}" aria-label="Answer to question {{ q.number }}">
+                <option value="">Choose…</option>
+                {% for c in q.choices %}<option value="{{ c.key }}"{% if c.key == q.saved %} selected{% endif %}>{{ c.key }}</option>{% endfor %}
+              </select>
+            {% else %}
+              <p>{{ q.text }}</p>
+              <div class="choices">
+              {% for c in q.choices %}
+                <label class="choice"><input type="radio" name="q_{{ q.id }}" value="{{ c.key }}"{% if c.key == q.saved %} checked{% endif %}> <span>{% if group.qtype == "mcq" %}<strong>{{ c.key }}</strong> {% endif %}{{ c.text }}</span></label>
+              {% endfor %}
+              </div>
+            {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </fieldset>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  {% endfor %}
+
+  <nav class="palette" id="palette" aria-label="Question navigator"></nav>
+</form>
+<button type="button" id="hl-btn" class="hl-float" hidden>Highlight</button>
+{{ test.translations|json_script:"reading-translations" }}
+<script src="{% static 'js/attempt.js' %}"></script>
+<script src="{% static 'js/hover-translate.js' %}"></script>
+{% endblock %}

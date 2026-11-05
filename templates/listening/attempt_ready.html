@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}{{ attempt.test.title }} · IELTS Practice{% endblock %}
+{% block content %}
+<section class="narrow">
+  <h1>{{ attempt.test.title }}</h1>
+  <p>Your {{ attempt.mode }} attempt is ready to continue.</p>
+  <p>The Listening test player will be added in the next step. Your attempt remains in progress.</p>
+  <p><a class="btn ghost" href="{% url 'listening:detail' attempt.test.slug %}">Return to test information</a></p>
+</section>
+{% endblock %}

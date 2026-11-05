@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Writing attempt preview{% endblock %}
+
+{% block content %}
+<h1>{{ attempt.test.title }}</h1>
+<p class="muted">User: {{ attempt.user }} | Started: {{ attempt.started_at|date:"Y-m-d H:i" }} | Mode: {{ attempt.mode }}</p>
+
+{% for response in response_rows %}
+  <section style="margin-top: 1.5rem; border: 1px solid var(--line); border-radius: var(--r-md); padding: 1rem; background: var(--surface);">
+    <h2>Task {{ response.task.task_number }}</h2>
+    <p class="muted">{{ response.task.instructions|default:"No instructions provided." }}</p>
+    <div style="white-space: pre-wrap;">{{ response.text|default:"(blank response)" }}</div>
+    <p class="muted">Word count: {{ response.word_count }}</p>
+  </section>
+{% empty %}
+  <p>No responses saved for this attempt yet.</p>
+{% endfor %}
+{% endblock %}

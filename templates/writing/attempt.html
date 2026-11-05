@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% load get_item static %}
+{% block title %}{{ attempt.test.title }} · Writing exam{% endblock %}
+{% block body_class %}wr-exam-page{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/writing.css' %}">{% endblock %}
+{% block content %}
+<section class="wr-exam">
+  <form method="post" action="{% url 'writing:submit' attempt.pk %}" id="writing-exam-form" class="wr-exam-form" data-save-url="{% url 'writing:save' attempt.pk %}">
+    {% csrf_token %}
+    <header class="wr-topbar">
+      <div class="wr-title">
+        <h1>{{ attempt.test.title }}</h1>
+        <p>{{ attempt.test.get_module_display }} · {{ attempt.mode|title }} mode</p>
+      </div>
+      <div class="wr-timer" data-exam-seconds="{{ attempt.remaining_seconds }}" role="timer" aria-label="Time remaining">
+        <span>Time left</span>
+        <strong id="exam-timer">--:--</strong>
+      </div>
+      <button class="btn wr-submit" type="submit" name="action" value="submit">Submit</button>
+    </header>
+
+    <div class="wr-layout">
+      <section class="wr-prompt-pane" aria-label="Task prompt">
+        {% for task in tasks %}
+          <article class="wr-prompt{% if forloop.first %} active{% endif %}" data-task-index="{{ forloop.counter0 }}"{% if not forloop.first %} hidden{% endif %}>
+            <h2>Task {{ task.task_number }}</h2>
+            {% if task.instructions %}
+              <div class="wr-instructions">{{ task.instructions|linebreaksbr }}</div>
+            {% endif %}
+            {% if task.prompt_text %}
+              <div class="wr-prompt-text">{{ task.prompt_text|linebreaksbr }}</div>
+            {% endif %}
+            {% if task.image %}
+              <img class="wr-chart" src="{{ task.image.url }}" alt="{{ task.image_alt|default:'Task prompt chart' }}">
+            {% elif "chart" in task.prompt_text|lower %}
+              <p class="wr-chart-missing">Chart not available</p>
+            {% endif %}
+          </article>
+        {% endfor %}
+      </section>
+
+      <section class="wr-answer-pane" aria-label="Your responses">
+        <div class="wr-tabs" role="tablist" aria-label="Writing tasks">
+          {% for task in tasks %}
+            <button type="button" class="wr-tab{% if forloop.first %} active{% endif %}" data-task-index="{{ forloop.counter0 }}" role="tab" id="wr-tab-{{ forloop.counter0 }}" aria-controls="wr-answer-{{ forloop.counter0 }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
+              Task {{ task.task_number }}
+            </button>
+          {% endfor %}
+        </div>
+
+        {% for task in tasks %}
+          <section class="wr-answer{% if forloop.first %} active{% endif %}" data-task-index="{{ forloop.counter0 }}" id="wr-answer-{{ forloop.counter0 }}" role="tabpanel" aria-labelledby="wr-tab-{{ forloop.counter0 }}"{% if not forloop.first %} hidden{% endif %}>
+            <label class="wr-response-label" for="task-{{ task.id }}-response">Task {{ task.task_number }} response</label>
+            <textarea id="task-{{ task.id }}-response" name="response_{{ task.id }}" data-task-id="{{ task.id }}" data-min-words="{{ task.min_words }}" rows="16" placeholder="Write your answer here...">{{ response_map|get_item:task.id }}</textarea>
+            <div class="wr-response-bar">
+              <span><strong class="wr-word-count is-under" data-task-count="{{ task.id }}">0</strong> words · minimum {{ task.min_words }}</span>
+              <span class="wr-save-controls">
+                <span class="wr-save-state" data-save-state aria-live="polite"></span>
+                <button class="btn ghost small" type="submit" name="action" value="save">Save draft</button>
+              </span>
+            </div>
+          </section>
+        {% endfor %}
+      </section>
+    </div>
+  </form>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  (function () {
+    const timerBox = document.querySelector('[data-exam-seconds]');
+    const timerEl = document.getElementById('exam-timer');
+    if (timerBox && timerEl) {
+      let remainingSeconds = Number(timerBox.dataset.examSeconds || 0);
+      const tick = () => {
+        const minutes = Math.floor(remainingSeconds / 60);
+        const seconds = remainingSeconds % 60;
+        timerEl.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        remainingSeconds = Math.max(0, remainingSeconds - 1);
+      };
+      tick();
+      window.setInterval(tick, 1000);
+    }
+
+    const tabs = document.querySelectorAll('.wr-tab');
+    const prompts = document.querySelectorAll('.wr-prompt');
+    const answers = document.querySelectorAll('.wr-answer');
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const index = tab.dataset.taskIndex;
+        tabs.forEach((item) => {
+          const selected = item === tab;
+          item.classList.toggle('active', selected);
+          item.setAttribute('aria-selected', selected ? 'true' : 'false');
+        });
+        prompts.forEach((panel) => {
+          panel.hidden = panel.dataset.taskIndex !== index;
+          panel.classList.toggle('active', !panel.hidden);
+        });
+        answers.forEach((panel) => {
+          panel.hidden = panel.dataset.taskIndex !== index;
+          panel.classList.toggle('active', !panel.hidden);
+        });
+      });
+    });
+
+    const textareas = document.querySelectorAll('textarea[data-task-id]');
+    const updateWordCount = (textarea) => {
+      const count = (textarea.value.match(/\S+/g) || []).length;
+      const target = document.querySelector(`[data-task-count="${textarea.dataset.taskId}"]`);
+      if (target) {
+        target.textContent = String(count);
+        target.classList.toggle('is-under', count < Number(textarea.dataset.minWords || 0));
+        target.classList.toggle('is-met', count >= Number(textarea.dataset.minWords || 0));
+      }
+    };
+    textareas.forEach((textarea) => {
+      updateWordCount(textarea);
+      textarea.addEventListener('input', () => updateWordCount(textarea));
+    });
+
+    const form = document.getElementById('writing-exam-form');
+    if (form) {
+      form.addEventListener('submit', (event) => {
+        const submitter = event.submitter;
+        if (!submitter || submitter.value !== 'save') return;
+        event.preventDefault();
+        const formData = new FormData(form);
+        fetch(form.dataset.saveUrl, {
+          method: 'POST',
+          body: formData,
+          headers: { 'X-CSRFToken': formData.get('csrfmiddlewaretoken') }
+        })
+          .then((response) => {
+            if (!response.ok) throw new Error('Save failed');
+            return response.json();
+          })
+          .then((data) => {
+            if (!data.ok) throw new Error('Save failed');
+            document.querySelectorAll('[data-save-state]').forEach((state) => {
+              state.textContent = 'Saved';
+            });
+          })
+          .catch(() => {
+            document.querySelectorAll('[data-save-state]').forEach((state) => {
+              state.textContent = 'Could not save';
+            });
+          });
+      });
+    }
+  })();
+</script>
+{% endblock %}

@@ -1,0 +1,316 @@
+{
+  "title": "William Gilbert and Magnetism",
+  "slug": "william-gilbert-and-magnetism",
+  "module": "academic",
+  "duration_minutes": 20,
+  "description": "IELTS Academic Reading passage about William Gilbert and his work on magnetism with 14 questions.",
+  "source_name": "kanan.co",
+  "source_url": "https://websitecmscdn.s3.ap-south-1.amazonaws.com/ielts_academic_reading_practice_test_3_7c5fe14daa.pdf",
+  "license_note": "UNKNOWN",
+  "passages": [
+    {
+      "title": "William Gilbert and Magnetism",
+      "subtitle": "IELTS Reading passage",
+      "text": "[A] The sixteenth and seventeenth centuries saw 2 great pioneers of modern science: Gilbert and Galileo. Their eminent findings made a big impact. Gilbert was the accredited father of the science of electricity and magnetism, the first modern scientist, a physician at the court of Elizabeth and an Englishman of learning. Before him, the things known about electricity and magnetism was what the ancients knew, and nothing more than that. Lodestone had magnetic properties and when amber and jet were rubbed, it would attract bits of paper or other substances of small specific gravity. However, he wasn't given the recognition he deserves.\n\n[B] Gilbert was born before Galileo. He was born on 24 May 1544 in an esteemed family in UK's Colchester county. After going to grammar school, he went to study medicine at St. John's College, Cambridge. He graduated in 1573 and then travelled to the continent and later settled down in London.\n\n[C] He was a very eminent and successful doctor and was elected as the president of the Royal Science Society. He was appointed to serve the Queen (Elizabeth I) as her personal physician, and was later knighted by the Queen. He served her faithfully until her death. But soon after the Queen's death he died on 10th December, 1603. It was only a few months after his appointment as a personal physician to King James.\n\n[D] Although Gilbert was interested in chemistry first he later changed his work because of a large portion of the mysticism of alchemy involved (such as the transmutation of metal). Slowly he became interested in physics after the great minds of the ancient, particularly about the knowledge the ancient Greeks had about lodestones, strange minerals with the power to attract iron. Meanwhile, in 1588 when the Spanish Armada was defeated, Britain had become a major seafaring nation, paving the way to the British settlement of America. British ships relied on the magnetic compass, yet no one knew why it worked. Was there a magnetic mountain at the pole, as described in Odyssey' which ships would never approach or as Columbus said, did the pole star attract it? William Gilbert conducted ingenious experiments from 1580 to understand magnetism for almost 20 years.\n\n[E] Gilbert's discoveries were so important to modern physics. He investigated the nature of electricity and magnetism. He was the one who coined the word \"electric\". Ultimately the beliefs of magnetism were also twisted with superstitions like rubbing garlic on lodestone can remove its magnetism. Even Sailors believed the smell of garlic would even interfere with the action of the compass, which is why the steerers were forbidden to eat it near a ship's compass. Gilbert also found that metals can be magnetised by rubbing materials such as plastic, fur, etc. on them. He named the magnets \"north and south pole\". Depending on its polarity magnets can attract or repel. In addition, however, a magnet always attracts an ordinary iron. Though he started to study the relationship between electricity and magnetism, he did not finish it. His research of static electricity using jet and amber only showed that objects with electrical charges can work like magnets that attract small pieces of paper and stuff. du Fay, a French guy discovered that there are actually two electrical charges, negative and positive.\n\n[F] He also questioned the traditional astronomical beliefs. He didn't express in his quintessential beliefs whether the earth is at the centre of the universe or in orbit around the sun though he was a Copernican. He believed that stars have their own earth-like planets orbiting around them and are not equidistant from the earth. Compasses always point north because the earth is like a giant magnet. The earth's polarity and the axis they spin on is aligned. He built an entire magnetic philosophy on this analogy. He even equated the polarity of the earth to that of magnets. He explained that magnetism was the soul of the earth and a perfectly spherical lodestone, when aligned with the earth's poles, would keep moving by itself in 24 hours. He further believed that suns and other stars wobble just like the earth does around a crystal core, and theorised that the moon might also be a magnet that orbits due to its attraction towards earth. Maybe this was the first proposal saying that a force might cause a heavenly orbit.\n\n[G] In his revolutionary research methods he used experiments instead of reasoning and pure logic like the ancient Greek philosophers did. It was new in the scientific investigation. Scientific experiments were not in fashion till then. Because of this scientific attitude and his contribution to the field of magnetism, the unit of magnetomotive force, also known as magnetic potential, was named Gilbert in his honour. He carefully approached it, observed and experimented it rather than the authoritative or deductive philosophy of others that had laid the very foundation for modern science.",
+      "groups": [
+        {
+          "type": "completion",
+          "instruction": "Complete the table below. Choose NO MORE THAN THREE WORDS from the reading passage for each answer.",
+          "questions": [
+            {
+              "number": 1,
+              "text": "Year: ____ | Event: Gilbert was born",
+              "answer": "24 May 1544",
+              "explanation": "Paragraph B: He was born on 24 May 1544."
+            },
+            {
+              "number": 2,
+              "text": "Year: ____ | Event: Queen Elizabeth died",
+              "answer": "1603",
+              "explanation": "Paragraph C: He died on 10th December, 1603. It was only a few months after the Queen's death, so the Queen died in 1603."
+            },
+            {
+              "number": 3,
+              "text": "Year: ____ | Event: Spanish Armada was defeated",
+              "answer": "1588",
+              "explanation": "Paragraph D: in 1588 when the Spanish Armada was defeated."
+            },
+            {
+              "number": 4,
+              "text": "Year: ____ | Event: Gilbert graduated from St. John's College",
+              "answer": "1573",
+              "explanation": "Paragraph B: He graduated in 1573."
+            },
+            {
+              "number": 5,
+              "text": "Year: 1580 | Event: William Gilbert conducted ____ ingenious experiments",
+              "answer": "almost 20 years",
+              "explanation": "Paragraph D: conducted ingenious experiments from 1580 to understand magnetism for almost 20 years."
+            }
+          ]
+        },
+        {
+          "type": "matching",
+          "instruction": "This reading passage has seven paragraphs, A–G. Which paragraph contains the following information? Write the correct letter, A–G, as your answer to each question.",
+          "options": [
+            {"key": "A", "text": "Paragraph A"},
+            {"key": "B", "text": "Paragraph B"},
+            {"key": "C", "text": "Paragraph C"},
+            {"key": "D", "text": "Paragraph D"},
+            {"key": "E", "text": "Paragraph E"},
+            {"key": "F", "text": "Paragraph F"},
+            {"key": "G", "text": "Paragraph G"}
+          ],
+          "questions": [
+            {
+              "number": 6,
+              "text": "Gilbert was the accredited father of the science of electricity and magnetism.",
+              "answer": "A",
+              "explanation": "Paragraph A states: Gilbert was the accredited father of the science of electricity and magnetism."
+            },
+            {
+              "number": 7,
+              "text": "He used experiments instead of reasoning and pure logic.",
+              "answer": "G",
+              "explanation": "Paragraph G: In his revolutionary research methods he used experiments instead of reasoning and pure logic."
+            },
+            {
+              "number": 8,
+              "text": "Gilbert coined the word \"electric\".",
+              "answer": "E",
+              "explanation": "Paragraph E: He was the one who coined the word \"electric\"."
+            },
+            {
+              "number": 9,
+              "text": "He believed that stars have their own earth-like planets.",
+              "answer": "F",
+              "explanation": "Paragraph F: He believed that stars have their own earth-like planets orbiting around them."
+            },
+            {
+              "number": 10,
+              "text": "Gilbert was interested in chemistry first.",
+              "answer": "D",
+              "explanation": "Paragraph D: Although Gilbert was interested in chemistry first he later changed his work."
+            }
+          ]
+        },
+        {
+          "type": "completion",
+          "instruction": "Complete the summary below. Write NO MORE THAN TWO WORDS from the passage for each answer.",
+          "questions": [
+            {
+              "number": 11,
+              "text": "He was born on 24 May 1544 in an esteemed family in UK's ____ county.",
+              "answer": "Colchester",
+              "explanation": "Paragraph B: in an esteemed family in UK's Colchester county."
+            },
+            {
+              "number": 12,
+              "text": "He investigated the nature of electricity and ____.",
+              "answer": "magnetism",
+              "explanation": "Paragraph E: He investigated the nature of electricity and magnetism."
+            },
+            {
+              "number": 13,
+              "text": "The unit of magnetomotive force, also known as ____, was named Gilbert in his honour.",
+              "answer": "magnetic potential",
+              "explanation": "Paragraph G: the unit of magnetomotive force, also known as magnetic potential, was named Gilbert."
+            },
+            {
+              "number": 14,
+              "text": "He died on 10th December, 1603 after a few months of his appointment as a personal physician to ____.",
+              "answer": "King James",
+              "explanation": "Paragraph C: It was only a few months after his appointment as a personal physician to King James."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "translations": {
+    "ru": {
+      "words": {
+        "pioneer": {"t": "первооткрыватель, пионер", "pos": "noun", "ex": "two great pioneers of modern science."},
+        "eminent": {"t": "выдающийся", "pos": "adj", "ex": "Their eminent findings made a big impact."},
+        "accredited": {"t": "общепризнанный", "pos": "adj", "ex": "the accredited father of the science of electricity."},
+        "lodestone": {"t": "магнетит, магнитный железняк", "pos": "noun", "ex": "Lodestone had magnetic properties."},
+        "amber": {"t": "янтарь", "pos": "noun", "ex": "when amber and jet were rubbed."},
+        "jet": {"t": "гагат", "pos": "noun", "ex": "when amber and jet were rubbed."},
+        "specific gravity": {"t": "удельный вес", "pos": "phrase", "ex": "substances of small specific gravity."},
+        "recognition": {"t": "признание", "pos": "noun", "ex": "he wasn't given the recognition he deserves."},
+        "esteemed": {"t": "уважаемый", "pos": "adj", "ex": "in an esteemed family in UK's Colchester county."},
+        "settle down": {"t": "обосноваться", "pos": "phrase", "ex": "later settled down in London."},
+        "knight": {"t": "посвящать в рыцари", "pos": "verb", "ex": "was later knighted by the Queen."},
+        "faithfully": {"t": "преданно", "pos": "adv", "ex": "He served her faithfully until her death."},
+        "outlive": {"t": "пережить", "pos": "verb", "ex": "he didn't outlive the Queen for long."},
+        "mysticism": {"t": "мистицизм", "pos": "noun", "ex": "the mysticism of alchemy involved."},
+        "alchemy": {"t": "алхимия", "pos": "noun", "ex": "the mysticism of alchemy involved."},
+        "transmutation": {"t": "превращение, трансмутация", "pos": "noun", "ex": "the transmutation of metal."},
+        "seafaring": {"t": "мореходный", "pos": "adj", "ex": "Britain had become a major seafaring nation."},
+        "compass": {"t": "компас", "pos": "noun", "ex": "British ships relied on the magnetic compass."},
+        "ingenious": {"t": "изобретательный, остроумный", "pos": "adj", "ex": "conducted ingenious experiments."},
+        "coin": {"t": "придумать (слово)", "pos": "verb", "ex": "coined the word \"electric\"."},
+        "superstition": {"t": "суеверие", "pos": "noun", "ex": "beliefs of magnetism were twisted with superstitions."},
+        "garlic": {"t": "чеснок", "pos": "noun", "ex": "rubbing garlic on lodestone."},
+        "interfere": {"t": "мешать, влиять", "pos": "verb", "ex": "the smell of garlic would interfere with the compass."},
+        "steerer": {"t": "рулевой", "pos": "noun", "ex": "the steerers were forbidden to eat it."},
+        "magnetise": {"t": "намагничивать", "pos": "verb", "ex": "metals can be magnetised by rubbing materials."},
+        "polarity": {"t": "полярность", "pos": "noun", "ex": "Depending on its polarity magnets can attract or repel."},
+        "repel": {"t": "отталкивать", "pos": "verb", "ex": "magnets can attract or repel."},
+        "static electricity": {"t": "статическое электричество", "pos": "phrase", "ex": "His research of static electricity."},
+        "astronomical": {"t": "астрономический", "pos": "adj", "ex": "questioned the traditional astronomical beliefs."},
+        "Copernican": {"t": "коперниканский", "pos": "adj", "ex": "though he was a Copernican."},
+        "equidistant": {"t": "равноудалённый", "pos": "adj", "ex": "are not equidistant from the earth."},
+        "axis": {"t": "ось", "pos": "noun", "ex": "the axis they spin on is aligned."},
+        "align": {"t": "выравнивать", "pos": "verb", "ex": "the axis they spin on is aligned."},
+        "analogy": {"t": "аналогия", "pos": "noun", "ex": "built an entire magnetic philosophy on this analogy."},
+        "equate": {"t": "приравнивать", "pos": "verb", "ex": "equated the polarity of the earth to that of magnets."},
+        "spherical": {"t": "сферический", "pos": "adj", "ex": "a perfectly spherical lodestone."},
+        "wobble": {"t": "колебаться", "pos": "verb", "ex": "suns and other stars wobble."},
+        "crystal core": {"t": "кристаллическое ядро", "pos": "phrase", "ex": "around a crystal core."},
+        "theorise": {"t": "теоретизировать", "pos": "verb", "ex": "theorised that the moon might also be a magnet."},
+        "orbit": {"t": "орбита; вращаться", "pos": "noun", "ex": "the moon might also be a magnet that orbits."},
+        "revolutionary": {"t": "революционный", "pos": "adj", "ex": "In his revolutionary research methods."},
+        "deductive": {"t": "дедуктивный", "pos": "adj", "ex": "the authoritative or deductive philosophy of others."},
+        "magnetomotive force": {"t": "магнитодвижущая сила", "pos": "phrase", "ex": "the unit of magnetomotive force."},
+        "magnetic potential": {"t": "магнитный потенциал", "pos": "phrase", "ex": "also known as magnetic potential."}
+      },
+      "forms": {
+        "pioneers": "pioneer",
+        "eminent": "eminent",
+        "accredited": "accredited",
+        "lodestone": "lodestone",
+        "amber": "amber",
+        "jet": "jet",
+        "gravity": "specific gravity",
+        "recognition": "recognition",
+        "esteemed": "esteemed",
+        "settled down": "settle down",
+        "knighted": "knight",
+        "faithfully": "faithfully",
+        "outlived": "outlive",
+        "mysticism": "mysticism",
+        "alchemy": "alchemy",
+        "transmutation": "transmutation",
+        "seafaring": "seafaring",
+        "compass": "compass",
+        "ingenious": "ingenious",
+        "coined": "coin",
+        "superstitions": "superstition",
+        "garlic": "garlic",
+        "interfere": "interfere",
+        "steerers": "steerer",
+        "magnetised": "magnetise",
+        "polarity": "polarity",
+        "repel": "repel",
+        "static": "static electricity",
+        "astronomical": "astronomical",
+        "Copernican": "Copernican",
+        "equidistant": "equidistant",
+        "axis": "axis",
+        "aligned": "align",
+        "analogy": "analogy",
+        "equated": "equate",
+        "spherical": "spherical",
+        "wobble": "wobble",
+        "theorised": "theorise",
+        "orbits": "orbit",
+        "revolutionary": "revolutionary",
+        "deductive": "deductive",
+        "magnetomotive": "magnetomotive force"
+      }
+    },
+    "tg": {
+      "words": {
+        "pioneer": {"t": "пешрав", "pos": "noun", "ex": "two great pioneers of modern science.", "ok": false},
+        "eminent": {"t": "барҷаста", "pos": "adj", "ex": "Their eminent findings made a big impact.", "ok": false},
+        "accredited": {"t": "эътирофшуда", "pos": "adj", "ex": "the accredited father of the science of electricity.", "ok": false},
+        "lodestone": {"t": "санги магнитӣ", "pos": "noun", "ex": "Lodestone had magnetic properties.", "ok": false},
+        "amber": {"t": "кахрабо", "pos": "noun", "ex": "when amber and jet were rubbed.", "ok": false},
+        "jet": {"t": "гагат", "pos": "noun", "ex": "when amber and jet were rubbed.", "ok": false},
+        "specific gravity": {"t": "вазни хос", "pos": "phrase", "ex": "substances of small specific gravity.", "ok": false},
+        "recognition": {"t": "эътироф", "pos": "noun", "ex": "he wasn't given the recognition he deserves.", "ok": false},
+        "esteemed": {"t": "эътиборнок", "pos": "adj", "ex": "in an esteemed family in UK's Colchester county.", "ok": false},
+        "settle down": {"t": "маскан гирифтан", "pos": "phrase", "ex": "later settled down in London.", "ok": false},
+        "knight": {"t": "рыцарь кардан", "pos": "verb", "ex": "was later knighted by the Queen.", "ok": false},
+        "faithfully": {"t": "бо вафо", "pos": "adv", "ex": "He served her faithfully until her death.", "ok": false},
+        "outlive": {"t": "зиёдтар зиндагӣ кардан", "pos": "verb", "ex": "he didn't outlive the Queen for long.", "ok": false},
+        "mysticism": {"t": "мистицизм", "pos": "noun", "ex": "the mysticism of alchemy involved.", "ok": false},
+        "alchemy": {"t": "алхимия", "pos": "noun", "ex": "the mysticism of alchemy involved.", "ok": false},
+        "transmutation": {"t": "табдил", "pos": "noun", "ex": "the transmutation of metal.", "ok": false},
+        "seafaring": {"t": "баҳрнавардӣ", "pos": "adj", "ex": "Britain had become a major seafaring nation.", "ok": false},
+        "compass": {"t": "компас", "pos": "noun", "ex": "British ships relied on the magnetic compass.", "ok": false},
+        "ingenious": {"t": "зирак, ихтироъкор", "pos": "adj", "ex": "conducted ingenious experiments.", "ok": false},
+        "coin": {"t": "ихтироъ кардан (калима)", "pos": "verb", "ex": "coined the word \"electric\".", "ok": false},
+        "superstition": {"t": "хурофот", "pos": "noun", "ex": "beliefs of magnetism were twisted with superstitions.", "ok": false},
+        "garlic": {"t": "сир", "pos": "noun", "ex": "rubbing garlic on lodestone.", "ok": false},
+        "interfere": {"t": "халал расондан", "pos": "verb", "ex": "the smell of garlic would interfere with the compass.", "ok": false},
+        "steerer": {"t": "роҳбар", "pos": "noun", "ex": "the steerers were forbidden to eat it.", "ok": false},
+        "magnetise": {"t": "магнитӣ кардан", "pos": "verb", "ex": "metals can be magnetised by rubbing materials.", "ok": false},
+        "polarity": {"t": "қутбнокӣ", "pos": "noun", "ex": "Depending on its polarity magnets can attract or repel.", "ok": false},
+        "repel": {"t": "дур кардан", "pos": "verb", "ex": "magnets can attract or repel.", "ok": false},
+        "static electricity": {"t": "электриситеи статикӣ", "pos": "phrase", "ex": "His research of static electricity.", "ok": false},
+        "astronomical": {"t": "астрономӣ", "pos": "adj", "ex": "questioned the traditional astronomical beliefs.", "ok": false},
+        "Copernican": {"t": "Коперникӣ", "pos": "adj", "ex": "though he was a Copernican.", "ok": false},
+        "equidistant": {"t": "баробардур", "pos": "adj", "ex": "are not equidistant from the earth.", "ok": false},
+        "axis": {"t": "тир", "pos": "noun", "ex": "the axis they spin on is aligned.", "ok": false},
+        "align": {"t": "ҳамвор кардан", "pos": "verb", "ex": "the axis they spin on is aligned.", "ok": false},
+        "analogy": {"t": "қиёс", "pos": "noun", "ex": "built an entire magnetic philosophy on this analogy.", "ok": false},
+        "equate": {"t": "баробар кардан", "pos": "verb", "ex": "equated the polarity of the earth to that of magnets.", "ok": false},
+        "spherical": {"t": "куравӣ", "pos": "adj", "ex": "a perfectly spherical lodestone.", "ok": false},
+        "wobble": {"t": "ларзидан", "pos": "verb", "ex": "suns and other stars wobble.", "ok": false},
+        "crystal core": {"t": "ядрои кристаллӣ", "pos": "phrase", "ex": "around a crystal core.", "ok": false},
+        "theorise": {"t": "назария пешниҳод кардан", "pos": "verb", "ex": "theorised that the moon might also be a magnet.", "ok": false},
+        "orbit": {"t": "мадор; давр задан", "pos": "noun", "ex": "the moon might also be a magnet that orbits.", "ok": false},
+        "revolutionary": {"t": "инқилобӣ", "pos": "adj", "ex": "In his revolutionary research methods.", "ok": false},
+        "deductive": {"t": "дедуктивӣ", "pos": "adj", "ex": "the authoritative or deductive philosophy of others.", "ok": false},
+        "magnetomotive force": {"t": "қувваи магнитҳаракатдиҳанда", "pos": "phrase", "ex": "the unit of magnetomotive force.", "ok": false},
+        "magnetic potential": {"t": "потенсиали магнитӣ", "pos": "phrase", "ex": "also known as magnetic potential.", "ok": false}
+      },
+      "forms": {
+        "pioneers": "pioneer",
+        "eminent": "eminent",
+        "accredited": "accredited",
+        "lodestone": "lodestone",
+        "amber": "amber",
+        "jet": "jet",
+        "gravity": "specific gravity",
+        "recognition": "recognition",
+        "esteemed": "esteemed",
+        "settled down": "settle down",
+        "knighted": "knight",
+        "faithfully": "faithfully",
+        "outlived": "outlive",
+        "mysticism": "mysticism",
+        "alchemy": "alchemy",
+        "transmutation": "transmutation",
+        "seafaring": "seafaring",
+        "compass": "compass",
+        "ingenious": "ingenious",
+        "coined": "coin",
+        "superstitions": "superstition",
+        "garlic": "garlic",
+        "interfere": "interfere",
+        "steerers": "steerer",
+        "magnetised": "magnetise",
+        "polarity": "polarity",
+        "repel": "repel",
+        "static": "static electricity",
+        "astronomical": "astronomical",
+        "Copernican": "Copernican",
+        "equidistant": "equidistant",
+        "axis": "axis",
+        "aligned": "align",
+        "analogy": "analogy",
+        "equated": "equate",
+        "spherical": "spherical",
+        "wobble": "wobble",
+        "theorised": "theorise",
+        "orbits": "orbit",
+        "revolutionary": "revolutionary",
+        "deductive": "deductive",
+        "magnetomotive": "magnetomotive force"
+      }
+    }
+  }
+}

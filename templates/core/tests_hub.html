@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Tests · IELTS Practice{% endblock %}
+{% block content %}
+<h1>Tests</h1>
+<p class="intro">Pick a module to practise. Each one is marked automatically and your finished tests are added to your progress page.</p>
+<section class="modules">
+  {% for m in modules %}
+  <article class="module {% if not m.url_name %}planned{% endif %}">
+    <h2>{{ m.name }}</h2>
+    <p>{{ m.blurb }}</p>
+    {% if m.url_name %}<a class="btn small" href="{% url m.url_name %}">Open</a>{% else %}<span class="tag">Planned</span>{% endif %}
+  </article>
+  {% endfor %}
+</section>
+
+<h2>The exam at a glance</h2>
+<p class="muted">Official exam format, for orientation. Each practice test shows its own length on its page.</p>
+<div class="table-wrap">
+  <table class="table">
+    <thead><tr><th>Module</th><th>What you do</th><th>Time</th></tr></thead>
+    <tbody>
+      <tr><td>Listening</td><td>Four recordings, 40 questions</td><td>About 30 minutes</td></tr>
+      <tr><td>Reading</td><td>Three passages, 40 questions</td><td>60 minutes</td></tr>
+      <tr><td>Writing</td><td>Task 1 (at least 150 words) and Task 2 essay (at least 250 words)</td><td>60 minutes</td></tr>
+      <tr><td>Speaking</td><td>Three-part conversation with an examiner</td><td>11 to 14 minutes</td></tr>
+    </tbody>
+  </table>
+</div>
+{% endblock %}

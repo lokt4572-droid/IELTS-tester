@@ -1,0 +1,28 @@
+{
+  "title": "Academic Writing Test 2",
+  "slug": "academic-writing-2",
+  "module": "academic",
+  "duration_minutes": 60,
+  "description": "Academic Writing practice test.",
+  "source_name": "Original (written for this site)",
+  "source_url": "",
+  "license_note": "Original content created for this website.",
+  "tasks": [
+    {
+      "task_number": 1,
+      "instructions": "You should spend about 20 minutes on this task.",
+      "prompt_text": "The chart below shows ... Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+      "image_file": "chart2.png",
+      "image_alt": "Line chart showing ... (describe the data)",
+      "min_words": 150,
+      "suggested_minutes": 20
+    },
+    {
+      "task_number": 2,
+      "instructions": "You should spend about 40 minutes on this task.",
+      "prompt_text": "Some people believe that ... Discuss both views and give your own opinion. Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+      "min_words": 250,
+      "suggested_minutes": 40
+    }
+  ]
+}

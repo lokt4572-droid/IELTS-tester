@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Sign up · IELTS Practice{% endblock %}
+{% block content %}
+<section class="auth">
+  <div>
+    <h1>Create your account</h1>
+    <form method="post" class="form">{% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn" type="submit">Sign up</button>
+    </form>
+    <p>Already registered? <a href="{% url 'login' %}">Log in</a></p>
+  </div>
+  <aside class="aside-note">
+    <h3>What you get</h3>
+    <ul>
+      <li>Full reading tests with every question type.</li>
+      <li>Instant marking with an estimated band.</li>
+      <li>A progress page that shows how you improve.</li>
+      <li>An AI tutor that explains your mistakes.</li>
+    </ul>
+  </aside>
+</section>
+{% endblock %}

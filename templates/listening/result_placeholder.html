@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Listening result · {{ attempt.test.title }}{% endblock %}
+{% block content %}
+<section class="narrow">
+  <h1>{{ attempt.test.title }} · Result</h1>
+  <p>Your score: {{ attempt.raw_score }} / {{ attempt.test.question_count }}</p>
+  {% if attempt.band %}<p>Estimated band: {{ attempt.band }}</p>{% endif %}
+  <p>The detailed answer review will be available in the result step.</p>
+  <p><a class="btn" href="{% url 'listening:list' %}">Back to listening tests</a></p>
+</section>
+{% endblock %}

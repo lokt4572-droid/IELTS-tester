@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}AI tutor · IELTS Practice{% endblock %}
+{% block body_class %}chat-page{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/chat-ai.css' %}">{% endblock %}
+{% block content %}
+<div class="chat-layout">
+  <aside class="chat-side">
+    <a class="btn small" href="{% url 'chat:home' %}">New chat</a>
+    <ul>
+      {% for s in sessions %}
+      <li class="{% if session and s.pk == session.pk %}current{% endif %}">
+        <a href="{% url 'chat:session' s.pk %}">{{ s.title }}</a>
+        <form method="post" action="{% url 'chat:delete' s.pk %}" onsubmit="return confirm('Delete this chat?')">{% csrf_token %}<button class="linklike" aria-label="Delete chat">Delete</button></form>
+      </li>
+      {% empty %}<li class="muted">No chats yet.</li>{% endfor %}
+    </ul>
+  </aside>
+  <section class="chat-main">
+    <h1 class="chat-title">AI tutor</h1>
+    <p class="muted">Ask why an answer is right, how a question type works, or get feedback on your writing. Answers can contain mistakes, so check anything important against the passage.</p>
+    {% if not configured %}<p class="notice">The AI tutor is not configured yet. Please contact the site administrator.</p>{% endif %}
+    <div id="thread" class="thread" aria-live="polite"></div>
+    <p id="empty-hint" class="muted" hidden>Ask about a reading question, a grammar point, or paste a Writing Task 2 answer for feedback.</p>
+    {% if not ask %}
+    <div class="prompt-chips">
+      <button type="button" class="chip-btn" data-prompt="Explain the difference between False and Not Given in True/False/Not Given questions.">False vs Not Given</button>
+      <button type="button" class="chip-btn" data-prompt="Give me a step-by-step method for Matching Headings questions.">Matching Headings method</button>
+      <button type="button" class="chip-btn" data-prompt="How can I read faster without missing the answers?">Read faster</button>
+      <button type="button" class="chip-btn" data-prompt="Give me feedback on my Writing Task 2 answer:&#10;&#10;">Writing feedback</button>
+    </div>
+    {% endif %}
+    {% if ask %}<p class="notice" id="ask-chip">Context attached: {{ ask.label }}</p>{% endif %}
+    <form id="chat-form" class="chat-form">
+      <textarea id="chat-input" rows="3" maxlength="{{ max_chars }}" placeholder="Type your question" required>{% if ask %}{{ ask.prefill }}{% endif %}</textarea>
+      <button class="btn" type="submit" id="chat-send">Send</button>
+    </form>
+    <p class="chat-ai-footer">Your messages are processed by an external AI service.</p>
+  </section>
+</div>
+{{ messages_json|json_script:"chat-data" }}
+<div id="chat-config" hidden data-send-url="{% url 'chat:send' %}" data-session-id="{% if session %}{{ session.pk }}{% endif %}"
+     data-attempt="{% if ask %}{{ ask.attempt }}{% endif %}" data-question="{% if ask %}{{ ask.question }}{% endif %}"
+     data-session-base="{% url 'chat:home' %}"></div>
+<script src="{% static 'js/chat.js' %}"></script>
+{% endblock %}

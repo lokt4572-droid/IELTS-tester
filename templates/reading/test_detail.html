@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}{{ test.title }} · IELTS Practice{% endblock %}
+{% block content %}
+<section class="narrow">
+  <h1>{{ test.title }}</h1>
+  <ul class="chips">
+    <li class="chip">{{ test.get_module_display }}</li>
+    <li class="chip">{{ passages|length }} passage{{ passages|length|pluralize }}</li>
+    <li class="chip">{{ n_questions }} questions</li>
+    <li class="chip">{{ test.duration_minutes }} minutes</li>
+  </ul>
+  {% if test.description %}<p>{{ test.description }}</p>{% endif %}
+  <h2>Passages in this test</h2>
+  <ul>
+    {% for p in passages %}<li>{{ p.title }}</li>{% endfor %}
+  </ul>
+  <div class="aside-note">
+    <h3>Before you start</h3>
+    <ul>
+      <li>The timer starts as soon as you press Start.</li>
+      <li>Answers save automatically, so you can resume if you close the tab.</li>
+      <li>Select text in a passage to highlight it. Click a highlight to remove it.</li>
+      <li>Use the numbered bar at the bottom to jump to any question.</li>
+    </ul>
+  </div>
+  <p class="muted">Source: {% if test.source_url %}<a href="{{ test.source_url }}" rel="noopener" target="_blank">{{ test.source_name }}</a>{% else %}{{ test.source_name }}{% endif %}{% if test.license_note %} — {{ test.license_note }}{% endif %}</p>
+  {% if user.is_authenticated %}
+  <form method="post" action="{% url 'reading:start' test.slug %}">{% csrf_token %}
+    <button class="btn" type="submit">Start test</button>
+  </form>
+  {% else %}
+  <p><a class="btn" href="{% url 'login' %}?next={{ request.path }}">Log in to start</a></p>
+  {% endif %}
+  {% if history %}
+  <h2>Your recent attempts</h2>
+  <ul>{% for a in history %}<li><a href="{% url 'reading:result' a.pk %}">{{ a.score }}/{{ a.total }} · band {{ a.band }}</a> — {{ a.finished_at|date:"j M Y" }}</li>{% endfor %}</ul>
+  {% endif %}
+</section>
+{% endblock %}

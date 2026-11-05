@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}{{ test.title }} · IELTS Practice{% endblock %}
+{% block content %}
+<section class="narrow">
+  <h1>{{ test.title }}</h1>
+  <ul class="chips">
+    <li class="chip">{{ test.get_module_display }}</li>
+    <li class="chip">{{ test.duration_minutes }} minutes</li>
+    <li class="chip">{{ tasks|length }} tasks</li>
+  </ul>
+  {% if test.description %}<p>{{ test.description }}</p>{% endif %}
+
+  <div class="aside-note">
+    <h3>Real exam rules</h3>
+    <ul>
+      <li>One shared 60-minute timer for the whole Writing test.</li>
+      <li>Task 1 minimum: 150 words. Task 2 minimum: 250 words.</li>
+      <li>Task 2 counts twice as much as Task 1 in the final band.</li>
+      <li>Spell-check and autocorrect are off.</li>
+      <li>Copy and paste is allowed.</li>
+    </ul>
+  </div>
+
+  {% if tasks %}
+  <h2>Tasks in this test</h2>
+  <ol>
+    {% for task in tasks %}
+      <li><strong>Task {{ task.task_number }}</strong> · {{ task.min_words }} words minimum</li>
+    {% endfor %}
+  </ol>
+  {% endif %}
+
+  <p class="muted">Source: {% if test.source_url %}<a href="{{ test.source_url }}" rel="noopener" target="_blank">{{ test.source_name }}</a>{% else %}{{ test.source_name }}{% endif %}{% if test.license_note %} — {{ test.license_note }}{% endif %}</p>
+
+  {% if user.is_authenticated %}
+    <form method="post" action="{% url 'writing:start' test.slug %}">{% csrf_token %}
+      <div class="hero-actions">
+        <button class="btn" type="submit" name="mode" value="exam">Start exam mode</button>
+        <button class="btn ghost" type="submit" name="mode" value="practice">Start practice mode</button>
+      </div>
+    </form>
+  {% else %}
+    <p><a class="btn" href="{% url 'login' %}?next={{ request.path }}">Log in to start</a></p>
+  {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Result · {{ test.title }}{% endblock %}
+{% block content %}
+<section class="result-head">
+  <h1>{{ test.title }}</h1>
+  <div class="stats">
+    <div><span class="big">{{ attempt.score }}/{{ attempt.total }}</span> correct ({{ percent }}%)</div>
+    <div><span class="big">{{ attempt.band }}</span> estimated band</div>
+    <div><span class="big">{{ time_text }}</span> time used</div>
+  </div>
+  <p class="muted">The band is an estimate from a commonly published conversion table, scaled to 40 questions. Official IELTS results can differ.</p>
+  <p><a class="btn" href="{% url 'reading:detail' test.slug %}">Try again</a> <a class="btn ghost" href="{% url 'dashboard' %}">My progress</a></p>
+</section>
+
+<h2>By question type</h2>
+<p class="muted">Short bars show the question types that cost you marks. Practise those first.</p>
+<ul class="breakdown">
+  {% for b in breakdown %}
+  <li><span>{{ b.label }}</span><span class="trend-bar"><span style="width: {{ b.percent }}%"></span></span><span>{{ b.correct }}/{{ b.total }}</span></li>
+  {% endfor %}
+</ul>
+
+<h2>Review</h2>
+<p class="muted">Check the correct answer and explanation for each question. If it is still unclear, ask the AI tutor.</p>
+{% for r in rows %}
+  {% ifchanged r.passage.id %}<h3 class="review-passage">{{ r.passage.title }}</h3>{% endifchanged %}
+  <article class="review {% if r.correct %}ok{% else %}bad{% endif %}">
+    <header><span class="qnum">{{ r.question.number }}</span> <span class="verdict">{% if r.correct %}Correct{% else %}Incorrect{% endif %}</span></header>
+    <p>{{ r.question.text }}</p>
+    <p>Your answer: <strong>{% if r.given %}{{ r.given }}{% else %}(blank){% endif %}</strong>
+      {% if not r.correct %} · Correct answer: <strong>{{ r.expected }}</strong>{% endif %}</p>
+    {% if r.question.explanation %}<p class="muted">{{ r.question.explanation }}</p>{% endif %}
+    <a class="ask" href="{% url 'chat:home' %}?attempt={{ attempt.pk }}&amp;question={{ r.question.pk }}">Ask the AI tutor to explain</a>
+  </article>
+{% endfor %}
+{% endblock %}

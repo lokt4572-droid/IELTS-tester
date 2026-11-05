@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <h1>Practise IELTS under exam conditions</h1>
+    <p class="lead">Timed reading passages, every question type, instant marking, and an AI tutor that explains each mistake using the passage itself.</p>
+    <div class="hero-actions">
+      <a class="btn" href="{% url 'reading:list' %}">Start a reading test</a>
+      <a class="btn ghost" href="{% url 'chat:home' %}">Ask the AI tutor</a>
+    </div>
+  </div>
+  <aside class="specimen" aria-hidden="true">
+    <p class="specimen-text"><span class="plabel">A</span>The viaduct was finished in 1932, <mark class="sweep">almost two years ahead of schedule</mark>, despite a harsh winter.</p>
+    <p class="specimen-q"><span class="qnum">1</span><span>The viaduct was completed about <span class="gap-fill">two</span> years early.</span></p>
+  </aside>
+</section>
+
+<h2>Choose a module</h2>
+<p class="intro">Reading is open now. The other modules are on the way and will appear here as they are added.</p>
+<section class="modules">
+  {% for m in modules %}
+  <article class="module {% if not m.url_name %}planned{% endif %}">
+    <h2>{{ m.name }}</h2>
+    <p>{{ m.blurb }}</p>
+    {% if m.url_name %}<a href="{% url m.url_name %}">Open {{ m.name }}</a>{% else %}<span class="tag">Planned</span>{% endif %}
+  </article>
+  {% endfor %}
+</section>
+
+<h2>How a practice session works</h2>
+<ol class="steps">
+  <li><h3>Pick a test</h3><p>Each test page shows the number of passages, questions and minutes before you begin.</p></li>
+  <li><h3>Work against the clock</h3><p>The passage sits beside the questions. Highlight key words, jump between questions, and your answers save as you type.</p></li>
+  <li><h3>See your result</h3><p>You get your score, an estimated band, and a breakdown by question type so you can see where marks are lost.</p></li>
+  <li><h3>Learn from mistakes</h3><p>Read the explanation for each wrong answer, or ask the AI tutor to walk you through it.</p></li>
+</ol>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}My progress · IELTS Practice{% endblock %}
+{% block content %}
+<h1>My progress</h1>
+<p class="intro">Your finished tests, your band estimates over time, and a link back into any result so you can review your answers.</p>
+{% if unfinished %}
+<p class="notice">You have an unfinished test: <strong>{{ unfinished.test.title }}</strong>.
+  <a href="{% url 'reading:attempt' unfinished.pk %}">Continue</a></p>
+{% endif %}
+{% if stats.count %}
+<div class="stats">
+  <div><span class="big">{{ stats.count }}</span> tests finished</div>
+  <div><span class="big">{{ stats.best }}</span> best band</div>
+  <div><span class="big">{{ stats.average }}</span> average band</div>
+</div>
+<h2>Last {{ trend|length }} bands</h2>
+<p class="muted">Longer bars mean a higher estimated band. Look for a steady climb rather than a single good day.</p>
+<ol class="trend">
+  {% for t in trend %}
+  <li><span class="trend-label">{{ t.attempt.finished_at|date:"j M" }}</span>
+      <span class="trend-bar"><span style="width: {{ t.width }}%"></span></span>
+      <span class="trend-val">{{ t.attempt.band }}</span></li>
+  {% endfor %}
+</ol>
+<h2>History</h2>
+<div class="table-wrap">
+<table class="table">
+  <thead><tr><th>Test</th><th>Score</th><th>Band</th><th>Finished</th><th></th></tr></thead>
+  <tbody>
+  {% for a in attempts %}
+    <tr><td>{{ a.test.title }}</td><td>{{ a.score }}/{{ a.total }}</td><td>{{ a.band }}</td>
+        <td>{{ a.finished_at|date:"j M Y, H:i" }}</td>
+        <td><a href="{% url 'reading:result' a.pk %}">Review</a></td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+<div class="empty">
+  <p>No finished tests yet. Your scores and band trend will appear here after your first test.</p>
+  <p><a class="btn" href="{% url 'reading:list' %}">Take your first reading test</a></p>
+</div>
+{% endif %}
+{% endblock %}

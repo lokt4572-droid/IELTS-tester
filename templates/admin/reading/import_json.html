@@ -1,0 +1,10 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<div id="content-main">
+  <p>Upload a JSON file in the documented format. Every problem found is listed so you can fix the file in one pass.</p>
+  <form method="post" enctype="multipart/form-data">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Import" class="default">
+  </form>
+</div>
+{% endblock %}

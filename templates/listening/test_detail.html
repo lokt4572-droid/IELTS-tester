@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}{{ test.title }} · IELTS Practice{% endblock %}
+{% block content %}
+<section class="narrow">
+  <h1>{{ test.title }}</h1>
+  <ul class="chips">
+    <li class="chip">{{ sections|length }} sections</li>
+    <li class="chip">{{ n_questions }} questions</li>
+    <li class="chip">About {{ test.duration_minutes }} minutes</li>
+  </ul>
+  {% if test.description %}<p>{{ test.description }}</p>{% endif %}
+
+  <div class="aside-note">
+    <h2>Listening test rules</h2>
+    <ul>
+      <li>The test has four sections and 40 questions.</li>
+      <li>In exam mode, each section's audio plays once; you cannot pause, rewind, or replay it.</li>
+      <li>You have about 30 seconds to read the questions before each section and about 30 seconds to check answers afterwards.</li>
+      <li>After Section 4, you have {{ review_duration }} to review all your answers, then submit.</li>
+      <li>Practice mode provides free audio controls and allows replay.</li>
+    </ul>
+  </div>
+
+  {% if sections %}
+  <h2>Sections</h2>
+  <ol>
+    {% for section in sections %}
+      <li><strong>{{ section.title }}</strong> · {{ section.n_questions }} questions</li>
+    {% endfor %}
+  </ol>
+  {% endif %}
+
+  <p class="muted">Source: {% if test.source_url %}<a href="{{ test.source_url }}" rel="noopener" target="_blank">{{ test.source_name }}</a>{% else %}{{ test.source_name }}{% endif %}{% if test.license_note %} — {{ test.license_note }}{% endif %}</p>
+
+  {% if user.is_authenticated %}
+    {% if resume_attempt %}
+      <p><a class="btn" href="{% if resume_attempt.mode == 'exam' and not resume_attempt.exam_started_at %}{% url 'listening:sound_check' resume_attempt.pk %}{% else %}{% url 'listening:attempt' resume_attempt.pk %}{% endif %}">Resume {{ resume_attempt.mode }} mode</a></p>
+    {% else %}
+      <form method="post" action="{% url 'listening:start' test.slug %}">
+        {% csrf_token %}
+        <div class="hero-actions">
+          <button class="btn" type="submit" name="mode" value="exam">Start exam mode</button>
+          <button class="btn ghost" type="submit" name="mode" value="practice">Start practice mode</button>
+        </div>
+      </form>
+    {% endif %}
+  {% else %}
+    <p><a class="btn" href="{% url 'login' %}?next={{ request.path }}">Log in to start</a></p>
+  {% endif %}
+</section>
+{% endblock %}

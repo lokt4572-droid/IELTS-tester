@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}{{ attempt.test.title }} · Writing exam{% endblock %}
+{% block content %}
+<section class="writing-exam">
+  <div class="exam-header">
+    <div>
+      <h1>{{ attempt.test.title }}</h1>
+      <p class="muted">{{ attempt.test.get_module_display }} · {{ attempt.test.duration_minutes }} minutes · {{ attempt.mode|title }} mode</p>
+    </div>
+    <div class="timer-box" data-exam-seconds="{{ attempt.remaining_seconds|default:attempt.test.duration_minutes*60 }}">
+      <span class="label">Time left</span>
+      <strong id="exam-timer">--:--</strong>
+    </div>
+  </div>
+
+  <form method="post" action="{% url 'writing:submit' attempt.id %}" id="writing-exam-form">
+    {% csrf_token %}
+
+    <div class="task-tabs" role="tablist" aria-label="Writing tasks">
+      {% for task in tasks %}
+        <button type="button" class="task-tab{% if forloop.first %} active{% endif %}" data-task-index="{{ forloop.counter0 }}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
+          Task {{ task.task_number }}
+        </button>
+      {% endfor %}
+    </div>
+
+    {% for task in tasks %}
+      <article class="task-panel{% if forloop.first %} active{% endif %}" data-task-panel="{{ forloop.counter0 }}">
+        <h2>Task {{ task.task_number }}</h2>
+        {% if task.prompt %}<div class="task-prompt">{{ task.prompt|linebreaksbr }}</div>{% endif %}
+        {% if task.image %}<img src="{{ task.image.url }}" alt="Task {{ task.task_number }} prompt image" class="task-image" />{% endif %}
+
+        <div class="response-block">
+          <label for="task-{{ task.id }}-response">Response</label>
+          <textarea id="task-{{ task.id }}-response" name="response_{{ task.id }}" data-task-id="{{ task.id }}" data-min-words="{{ task.min_words }}" data-task-number="{{ task.task_number }}" rows="20" placeholder="Write your answer here...">{{ response_map|get_item:task.id }}</textarea>
+          <div class="word-meta">
+            <span class="word-count" data-task-count="{{ task.id }}">0</span> words · minimum {{ task.min_words }}
+          </div>
+        </div>
+      </article>
+    {% endfor %}
+
+    <div class="exam-actions">
+      <button class="btn ghost" type="submit" name="action" value="save">Save draft</button>
+      <button class="btn" type="submit" name="action" value="submit">Submit final answer</button>
+    </div>
+  </form>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  (function () {
+    const timerBox = document.querySelector('[data-exam-seconds]');
+    const timerEl = document.getElementById('exam-timer');
+    if (!timerBox || !timerEl) return;
+    let remainingSeconds = Number(timerBox.dataset.examSeconds || 0);
+
+    function formatTime(totalSeconds) {
+      const minutes = Math.max(0, Math.floor(totalSeconds / 60));
+      const seconds = Math.max(0, totalSeconds % 60);
+      return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+
+    function tick() {
+      if (remainingSeconds <= 0) {
+        timerEl.textContent = '00:00';
+        return;
+      }
+      timerEl.textContent = formatTime(remainingSeconds);
+      remainingSeconds -= 1;
+      if (remainingSeconds < 0) remainingSeconds = 0;
+    }
+
+    tick();
+    setInterval(tick, 1000);
+
+    const taskTabs = document.querySelectorAll('.task-tab');
+    const taskPanels = document.querySelectorAll('[data-task-panel]');
+
+    taskTabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const index = Number(tab.dataset.taskIndex);
+        taskTabs.forEach((btn) => {
+          btn.classList.toggle('active', btn === tab);
+          btn.setAttribute('aria-selected', btn === tab ? 'true' : 'false');
+        });
+        taskPanels.forEach((panel) => {
+          panel.classList.toggle('active', Number(panel.dataset.taskPanel) === index);
+        });
+      });
+    });
+
+    const textareas = document.querySelectorAll('textarea[data-task-id]');
+    const countWords = (value) => (value || '').trim() ? (value.match(/\S+/g) || []).length : 0;
+
+    const updateWordCount = (textarea) => {
+      const count = countWords(textarea.value);
+      const target = document.querySelector(`[data-task-count="${textarea.dataset.taskId}"]`);
+      if (target) target.textContent = String(count);
+    };
+
+    textareas.forEach((textarea) => {
+      updateWordCount(textarea);
+      textarea.addEventListener('input', () => updateWordCount(textarea));
+    });
+  })();
+</script>
+{% endblock %}

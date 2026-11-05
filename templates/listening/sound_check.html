@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Sound check · {{ attempt.test.title }}{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/listening.css' %}">{% endblock %}
+{% block content %}
+<section class="narrow ls-sound-check">
+  <p class="muted"><a href="{% url 'listening:detail' attempt.test.slug %}">Back to test information</a></p>
+  <h1>Sound check</h1>
+  <p>Check that your device can play audio before you begin {{ attempt.test.title }}.</p>
+  <p class="notice">Set your device volume to a comfortable level. During exam mode, the recording plays once without pause, rewind, or replay.</p>
+  <audio id="ls-sound-check-audio" preload="auto">
+    <source src="{% static 'listening/sound-check.wav' %}" type="audio/wav">
+  </audio>
+  <button class="btn" type="button" id="ls-play-sound">Play test sound</button>
+  <p id="ls-sound-check-status" class="muted" aria-live="polite">Press the button to play a short test tone.</p>
+  <form method="post" action="{% url 'listening:confirm_sound_check' attempt.pk %}">
+    {% csrf_token %}
+    <button class="btn ghost" type="submit">Start exam</button>
+  </form>
+</section>
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'js/listening-sound-check.js' %}" defer></script>
+{% endblock %}

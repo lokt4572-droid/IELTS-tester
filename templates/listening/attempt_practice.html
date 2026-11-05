@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ attempt.test.title }} · Practice mode{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/listening.css' %}">{% endblock %}
+{% block content %}
+<section class="ls-practice" id="ls-practice"
+  data-attempt-id="{{ attempt.pk }}"
+  data-save-url="{% url 'listening:save' attempt.pk %}"
+  data-submit-url="{% url 'listening:submit' attempt.pk %}"
+  data-server-saved-at="{{ saved_at }}">
+  <header class="ls-practice-header">
+    <div>
+      <p class="muted"><a href="{% url 'listening:detail' attempt.test.slug %}">Test information</a> · Practice mode</p>
+      <h1>{{ attempt.test.title }}</h1>
+    </div>
+    <div class="ls-save-status" id="ls-save-status" aria-live="polite"></div>
+  </header>
+
+  <nav class="ls-section-nav" aria-label="Listening sections">
+    {% for section in sections %}
+      <button class="ls-section-tab{% if forloop.first %} ls-active{% endif %}" type="button"
+        data-section-tab="{{ section.number }}" aria-controls="ls-section-{{ section.number }}"
+        aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
+        <span>Section {{ section.number }}</span>
+        <span class="ls-section-count" data-section-count="{{ section.number }}">{{ section.answered_count }}/{{ section.question_count }} answered</span>
+      </button>
+    {% endfor %}
+  </nav>
+
+  <form id="ls-practice-form">
+    {% csrf_token %}
+    {% for section in sections %}
+    <section class="ls-section{% if not forloop.first %} ls-hidden{% endif %}"
+      id="ls-section-{{ section.number }}" data-section-panel="{{ section.number }}">
+      <header class="ls-section-header">
+        <div>
+          <p class="ls-kicker">Section {{ section.number }}</p>
+          <h2>{{ section.title }}</h2>
+          {% if section.context %}<p class="ls-context">{{ section.context }}</p>{% endif %}
+        </div>
+        <div class="ls-audio-controls">
+          <audio controls preload="metadata" src="{{ section.audio.url }}">
+            Your browser does not support audio playback.
+          </audio>
+          <label class="ls-speed-label" for="ls-speed-{{ section.number }}">Playback speed</label>
+          <select class="ls-speed" id="ls-speed-{{ section.number }}" data-speed-control>
+            <option value="0.75">0.75×</option>
+            <option value="1" selected>1×</option>
+            <option value="1.25">1.25×</option>
+          </select>
+          <button class="btn ghost small" type="button" data-replay>Replay section</button>
+        </div>
+      </header>
+
+      {% for group in section.groups.all %}
+      <fieldset class="ls-group">
+        {% if group.instruction %}<legend>{{ group.instruction }}</legend>{% endif %}
+        {% if group.text %}<p class="ls-group-text">{{ group.text }}</p>{% endif %}
+        {% if group.image %}
+          <img class="ls-diagram" src="{{ group.image.url }}" alt="Question diagram for {{ section.title }}">
+        {% endif %}
+        {% if group.qtype == "mcq_multi" %}
+          <p class="ls-choose-hint">Choose up to {{ group.choose }}.</p>
+          <ol class="ls-number-list">
+            {% for number in group.multi_question_numbers %}
+              <li value="{{ number }}">Question {{ number }}</li>
+            {% endfor %}
+          </ol>
+          <div class="ls-options ls-multi-options" data-multi-questions="{{ group.multi_question_numbers|join:',' }}" data-choose="{{ group.choose }}">
+            {% for option in group.options %}
+              <label class="ls-option">
+                <input type="checkbox" value="{{ option.key }}" data-multi-option>
+                <span><strong>{{ option.key }}.</strong> {{ option.text }}</span>
+              </label>
+            {% endfor %}
+          </div>
+        {% else %}
+          {% for question in group.questions.all %}
+          <div class="ls-question" data-question-wrap="{{ question.number }}">
+            <span class="ls-question-number">Question {{ question.number }}</span>
+            <p class="ls-question-text" id="ls-question-text-{{ question.number }}">{{ question.text }}</p>
+            {% if group.qtype == "mcq" %}
+              <div class="ls-options" role="group" aria-labelledby="ls-question-text-{{ question.number }}">
+                {% for option in question.options %}
+                  <label class="ls-option">
+                    <input type="radio" name="question-{{ question.number }}" value="{{ option.key }}"
+                      data-question-number="{{ question.number }}" data-answer-type="letter">
+                    <span><strong>{{ option.key }}.</strong> {{ option.text }}</span>
+                  </label>
+                {% endfor %}
+              </div>
+            {% elif group.qtype == "matching" or group.qtype == "diagram_label" %}
+              <label class="ls-sr-only" for="ls-answer-{{ question.number }}">Answer for question {{ question.number }}</label>
+              <select id="ls-answer-{{ question.number }}" data-question-number="{{ question.number }}" data-answer-type="letter" aria-describedby="ls-question-text-{{ question.number }}">
+                <option value="">Choose a letter</option>
+                {% for option in group.options %}
+                  <option value="{{ option.key }}">{{ option.key }}{% if group.qtype == "matching" %} · {{ option.text }}{% endif %}</option>
+                {% endfor %}
+              </select>
+            {% else %}
+              <label class="ls-sr-only" for="ls-answer-{{ question.number }}">Answer for question {{ question.number }}</label>
+              <input class="ls-text-answer" type="text" maxlength="200" id="ls-answer-{{ question.number }}"
+                data-question-number="{{ question.number }}" data-answer-type="text"
+                aria-describedby="ls-question-text-{{ question.number }}{% if group.max_words %} ls-hint-{{ question.number }}{% endif %}">
+              {% if group.max_words %}<span class="ls-word-hint" id="ls-hint-{{ question.number }}">Word limit: {{ group.max_words }} (hint only)</span>{% endif %}
+            {% endif %}
+          </div>
+          {% endfor %}
+        {% endif %}
+      </fieldset>
+      {% endfor %}
+    </section>
+    {% endfor %}
+
+    <div class="ls-form-footer">
+      <button class="btn ghost" type="button" id="ls-save-now">Save now</button>
+      <button class="btn" type="button" id="ls-submit">Submit answers</button>
+      <p class="ls-error" id="ls-error" aria-live="polite"></p>
+    </div>
+  </form>
+</section>
+{{ answer_map|json_script:"ls-initial-answers" }}
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'js/listening.js' %}" defer></script>
+{% endblock %}
